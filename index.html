@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LFIN AI - Neural Acoustics</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="container nav-container">
+      <div class="logo">
+        <i data-lucide="brain-circuit"></i>
+        <span>LFIN AI</span>
+      </div>
+      <nav class="nav-links">
+        <a href="#workspace">Workspace</a>
+        <a href="#features">Features</a>
+        <a href="#pipeline">Pipeline</a>
+        <a href="#team">Team</a>
+      </nav>
+      <button class="btn btn-outline" id="theme-toggle">
+        <i data-lucide="moon" id="icon-moon"></i>
+        <i data-lucide="sun" id="icon-sun" style="display:none;"></i>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section id="hero" class="hero" style="position: relative; overflow: hidden; min-height: 650px; display: flex; align-items: center;">
+      
+      <div id="orb-container" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: auto;"></div>
+
+      <div class="container text-center" style="position: relative; z-index: 10; pointer-events: none; max-width: 400px; margin: 0 auto;">
+        <span class="badge" style="margin-bottom: 1.5rem;"><i data-lucide="sparkles"></i> Next-Gen Audio Intelligence</span>
+        
+        <canvas id="fuzzy-title" style="display: block; margin: 0 auto 0.5rem auto; pointer-events: auto; cursor: pointer;"></canvas>
+        
+        <p class="hero-subtitle" style="color: var(--text-main); font-weight: 500; font-size: 1.15rem; margin-bottom: 2rem;">
+          Transform Audio into Perfect Transcripts.
+        </p>
+        
+        <div class="hero-actions" style="pointer-events: auto;">
+          <a href="#workspace" class="btn btn-primary">Start Transcribing <i data-lucide="arrow-right"></i></a>
+        </div>
+      </div>
+    </section>
+
+    <section id="workspace" class="workspace">
+      <div class="container">
+        <div class="card">
+          <div class="text-center section-header">
+            <h2>Audio Workspace</h2>
+            <p>Upload an audio file or record directly from your microphone.</p>
+          </div>
+
+          <div class="grid-2">
+            <label for="file-upload" class="box-action">
+              <div class="icon-wrapper blue"><i data-lucide="upload-cloud"></i></div>
+              <h3>Upload File</h3>
+              <p>MP3, WAV, M4A (Max 50MB)</p>
+              <input type="file" id="file-upload" accept="audio/*" hidden>
+            </label>
+
+            <button id="btn-record" class="box-action">
+              <div class="icon-wrapper pink"><i data-lucide="mic"></i></div>
+              <h3>Live Capture</h3>
+              <p>Record via primary microphone</p>
+            </button>
+          </div>
+
+          <div id="action-workspace" class="action-bar hidden">
+            <div class="status-indicator">
+              <span class="dot"></span>
+              <span id="action-status">Payload Ready</span>
+            </div>
+            <button id="btn-process" class="btn btn-primary btn-block">
+              <i data-lucide="cpu"></i> Generate Transcription
+            </button>
+            <button id="btn-cancel" class="btn btn-text">Cancel Session</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="output-section" class="output hidden">
+      <div class="container">
+        <div class="card">
+          <div id="output-loader" class="loader-view">
+            <i data-lucide="loader-2" class="spin icon-large"></i>
+            <p>Processing Audio Pipeline...</p>
+          </div>
+
+          <div id="output-result" class="hidden">
+            <div class="result-header">
+              <div class="result-title">
+                <div class="icon-wrapper green small"><i data-lucide="check-check"></i></div>
+                <h3>Transcription Complete</h3>
+              </div>
+              <button id="btn-copy" class="btn btn-outline btn-small">
+                <i data-lucide="copy"></i> Copy
+              </button>
+            </div>
+            <div class="result-box">
+              <p id="output-text"></p>
+            </div>
+            <div class="text-center mt-2">
+              <button id="btn-reset" class="btn btn-outline">Transcribe Another Audio</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="features bg-alt">
+      <div class="container">
+        <div class="text-center section-header">
+          <h2>Why Choose LFIN AI?</h2>
+          <p>Built for accuracy, speed, and absolute privacy.</p>
+        </div>
+        <div class="grid-3">
+          <div class="feature-card">
+            <div class="icon-wrapper blue"><i data-lucide="zap"></i></div>
+            <h3>Lightning Fast</h3>
+            <p>Our optimized neural network processes audio in real-time, delivering transcripts seconds after uploading.</p>
+          </div>
+          <div class="feature-card">
+            <div class="icon-wrapper pink"><i data-lucide="shield-check"></i></div>
+            <h3>100% Private</h3>
+            <p>Your audio never leaves your localized workspace. Zero-retention policies ensure complete data privacy.</p>
+          </div>
+          <div class="feature-card">
+            <div class="icon-wrapper green"><i data-lucide="languages"></i></div>
+            <h3>Dysarthric Mapping</h3>
+            <p>Proprietary logic cleanses disruptive speech patterns, reconstructing intended linguistic architecture perfectly.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="pipeline" class="pipeline">
+      <div class="container">
+        <div class="text-center section-header">
+          <h2>The Neural Pipeline</h2>
+          <p>How we process complex bio-audio into structured text.</p>
+        </div>
+        <div class="grid-3">
+          <div class="step-card">
+            <div class="step-number">1</div>
+            <h3>Acquisition</h3>
+            <p>High-fidelity bio-audio is securely captured through the encrypted workspace layer.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-number">2</div>
+            <h3>Mapping</h3>
+            <p>Proprietary logic cleanses disruptive dysarthric waves into flat native structures.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-number">3</div>
+            <h3>Generation</h3>
+            <p>The neural pipeline prints flawless linguistic phrases natively parsed.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="team" class="team bg-alt">
+      <div class="container">
+        <div class="text-center section-header">
+          <h2>Meet Our Team</h2>
+          <p>The engineers and researchers behind LFIN AI.</p>
+        </div>
+        <div class="grid-3">
+          <div class="team-card">
+            <div class="avatar"></div>
+            <h3>Dr. Sarah Jenkins</h3>
+            <p class="role">Chief AI Scientist</p>
+            <p>Pioneered the dysarthric mapping algorithm used in our core engine.</p>
+          </div>
+          <div class="team-card">
+            <div class="avatar"></div>
+            <h3>Marcus Reed</h3>
+            <p class="role">Lead Systems Engineer</p>
+            <p>Architect behind our zero-latency audio processing pipeline.</p>
+          </div>
+          <div class="team-card">
+            <div class="avatar"></div>
+            <h3>Elena Rostova</h3>
+            <p class="role">Head of Accessibility</p>
+            <p>Ensures our tools meet the highest standards for users with speech variations.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container text-center">
+      <div class="footer-logo">
+        <i data-lucide="brain-circuit"></i>
+        <span>LFIN AI</span>
+      </div>
+      <p class="footer-text">A seamless accessibility tool mapping non-standard speech into structurally perfect architecture.</p>
+      <p class="copyright">&copy; 2024 LFIN AI. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script type="module" src="script.js"></script>
+</body>
+</html>
