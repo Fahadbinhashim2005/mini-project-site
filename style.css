@@ -96,19 +96,44 @@ a {
 }
 
 /* =========================================
-   NAVBAR
+   FLOATING PILL NAVBAR (LIGHT & DARK)
 ========================================= */
 .navbar {
   position: fixed;
-  top: 0;
-  width: 100%;
-  height: 70px;
-  background: rgba(var(--card-bg), 0.8);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--border-color);
-  z-index: 100;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 800px;
+  height: 64px;
+  z-index: 1000;
   display: flex;
   align-items: center;
+  padding: 0 32px;
+  
+  /* Variable-based styling */
+  background: rgba(var(--navbar-bg), 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--navbar-border);
+  border-radius: 999px;
+  transition: background 0.3s, border 0.3s;
+}
+
+/* Light Mode Navbar Colors (Add to :root) */
+:root {
+  --navbar-bg: 255, 255, 255;      /* White */
+  --navbar-border: rgba(0, 0, 0, 0.1);
+  --navbar-text: rgba(15, 23, 42, 0.8);
+  --navbar-text-hover: #4f46e5;
+}
+
+/* Dark Mode Navbar Colors (Add to body.dark) */
+body.dark {
+  --navbar-bg: 9, 9, 11;           /* Black */
+  --navbar-border: rgba(255, 255, 255, 0.1);
+  --navbar-text: rgba(255, 255, 255, 0.7);
+  --navbar-text-hover: #ffffff;
 }
 
 .nav-container {
@@ -118,29 +143,65 @@ a {
   width: 100%;
 }
 
-.logo { 
-  display: flex; 
-  align-items: center; 
-  gap: 8px; 
-  font-weight: 700; 
-  font-size: 1.25rem; 
-  color: var(--primary); 
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.nav-links { 
-  display: flex; 
-  gap: 2rem; 
-  font-weight: 500; 
-  font-size: 0.9rem; 
-  color: var(--text-muted); 
+/* Logo icon and text color adjustments */
+.logo [data-lucide],
+.logo span {
+  color: var(--text-main); /* Uses your existing global text variable */
+  font-weight: 700;
+  font-size: 1.1rem;
 }
 
-.nav-links a:hover { color: var(--primary); }
-
-@media (max-width: 768px) { 
-  .nav-links { display: none; } 
+.nav-links {
+  display: flex;
+  gap: 24px;
 }
 
+.nav-links a {
+  color: var(--navbar-text);
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.nav-links a:hover {
+  color: var(--navbar-text-hover);
+}
+
+/* Theme Toggle Button within the Pill */
+#theme-toggle {
+  background: transparent;
+  border: none;
+  color: var(--text-main);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  margin-left: 8px;
+  border-radius: 50%;
+  transition: background 0.2s;
+}
+
+#theme-toggle:hover {
+  background: rgba(var(--navbar-bg), 0.1);
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    width: 95%;
+    top: 10px;
+    padding: 0 20px;
+    height: 56px;
+  }
+  .nav-links {
+    display: none;
+  }
+}
 /* =========================================
    BUTTONS
 ========================================= */
@@ -208,7 +269,10 @@ section { padding: 100px 0; }
 /* =========================================
    HERO
 ========================================= */
-.hero { padding: 150px 0 100px; }
+.hero { 
+  padding: 150px 0 100px;
+  margin-top: 55px;
+ }
 
 .badge {
   display: inline-flex;
@@ -376,21 +440,134 @@ body.dark .icon-wrapper.green { background: rgba(22, 163, 74, 0.2); }
   color: var(--primary); 
 }
 
-.team-card { text-align: center; }
-
-.avatar { 
-  width: 80px; height: 80px; 
-  background: var(--border-color); 
-  border-radius: 50%; 
-  margin: 0 auto 1rem; 
+/* Make the team section take up 1200px instead of 1100px */
+.container-wide {
+  max-width: 1200px !important;
 }
 
-.team-card .role { 
-  color: var(--primary); 
-  font-weight: 600; 
-  font-size: 0.85rem; 
-  text-transform: uppercase; 
-  margin-bottom: 1rem; 
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px; /* More breathing room */
+}
+
+.card-inner {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 24px; /* More rounded for a friendlier feel */
+  padding: 50px 20px;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Glassmorphism Effect */
+body.dark .card-inner {
+  background: rgba(24, 24, 27, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Card Hover: Subtle zoom and border glow */
+.container-wide {
+  max-width: 1200px !important;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.team-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 40px 20px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Light mode specific shadow */
+body:not(.dark) .team-card {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* Dark mode specific glow */
+body.dark .team-card {
+  background: rgba(24, 24, 27, 0.4);
+  backdrop-filter: blur(10px);
+}
+
+.team-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--primary);
+}
+
+/* Avatar backgrounds based on your reference image */
+.avatar-bg {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  margin: 0 auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+}
+
+.avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: #eee;
+  background-size: cover;
+  background-position: center;
+}
+
+/* Color codes matching reference */
+.avatar-bg.purple { background-color: #a78bfa; }
+.avatar-bg.pink { background-color: #fb7185; }
+.avatar-bg.orange { background-color: #fb923c; }
+.avatar-bg.blue { background-color: #38bdf8; }
+
+.team-card h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 5px;
+  color: var(--text-main);
+}
+
+.team-card .role {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 20px;
+}
+
+.team-socials {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.team-socials a {
+  color: #4f46e5; /* Classic blue for icons like in image */
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.team-socials a:hover {
+  transform: scale(1.2);
+  color: var(--primary);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .team-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .team-grid { grid-template-columns: 1fr; }
 }
 
 /* =========================================
